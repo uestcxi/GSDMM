@@ -24,4 +24,5 @@ if __name__ == '__main__':
     res = zip(docs, clusters)
     res.sort(key=lambda x:x[1])
     for e in res:
-        print json.dumps({'text':e[0], 'cluster':e[1]}, ensure_ascii=False)
+        print json.dumps({'text':e[0], 'cluster':e[1]},
+                         ensure_ascii=False).encode('utf-8')

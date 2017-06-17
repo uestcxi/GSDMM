@@ -68,6 +68,7 @@ public class Model{
 	public void gibbsSampling(DocumentSet documentSet)
 	{
 		for(int i = 0; i < iterNum; i++){
+            System.err.print("Iteration " + i + "\r");
 			for(int d = 0; d < D; d++){
 				Document document = documentSet.documents.get(d);
 				int cluster = z[d];
@@ -91,6 +92,7 @@ public class Model{
 				}
 			}
 		}
+        System.err.println("\n");
 	}
 
 	private int sampleCluster(int d, Document document)
