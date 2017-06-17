@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!--
+   Author: Xuemin Zhao (xmzhao1986@gmail.com)
+-->
+
+<project basedir="." default="build" name="gsdmm">
+  <property name="blade_root" value="." />
+
+  <property name="debuglevel" value="source,lines,vars" />
+  <property name="target" value="1.6" />
+  <property name="source" value="1.6" />
+  <path id="gsdmm.classpath">
+    <pathelement location="bin" />
+    <pathelement location="${blade_root}/lib/org.json-20120521.jar" />
+  </path>
+
+  <target name="clean">
+    <delete dir="bin" />
+    <delete dir="build" />
+    <delete dir="log" />
+  </target>
+
+  <target depends="clean" name="init">
+    <mkdir dir="bin" />
+    <mkdir dir="build" />
+    <copy includeemptydirs="false" todir="bin">
+      <fileset dir="src">
+        <exclude name="**/*.launch" />
+        <exclude name="**/*.java" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target depends="init" name="compilepb">
+  </target>
+
+  <target depends="init" name="build-project">
+    <echo message="${ant.project.name}: ${ant.file}" />
+    <javac encoding="UTF-8" debug="true" debuglevel="${debuglevel}"
+      destdir="bin" source="${source}" target="${target}"
+      includeAntRuntime="false">
+      <src path="src/" />
+      <classpath refid="gsdmm.classpath" />
+    </javac>
+  </target>
+
+  <target depends="compilepb, build-project" name="build">
+    <jar destfile="build/gsdmm.jar" filesetmanifest="mergewithoutmain">
+      <fileset dir="bin" />
+      <zipfileset excludes="META-INF/*.SF" src="${blade_root}/lib/org.json-20120521.jar" />
+    </jar>
+  </target>
+
+</project>

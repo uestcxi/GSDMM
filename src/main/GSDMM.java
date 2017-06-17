@@ -26,11 +26,18 @@ public class GSDMM
 	}
 	public static void main(String args[]) throws Exception
 	{
-		int K = 50;
-		double alpha = 0.1;
-		double beta = 0.1;
-		int iterNum = 10;
-		String dataset = "20ng";
+        if (args.length != 5) {
+            System.err.println("Usage:\n" +
+                "  java -cp gsdmm.jar main.GSDMM k alpha beta iterNum dataset\n\n" +
+                "  java -cp gsdmm.jar main.GSDMM 50 0.1 0.1 10 20ng\n");
+            return;
+        }
+
+		int K = Integer.parseInt(args[0]);
+		double alpha = Double.valueOf(args[1]);
+		double beta = Double.valueOf(args[2]);
+		int iterNum = Integer.parseInt(args[3]);
+		String dataset = args[4];
 		GSDMM gsdmm = new GSDMM(K, alpha, beta, iterNum, dataset);
 		
 		long startTime = System.currentTimeMillis();				
